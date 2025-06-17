@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación de Desempeño - Colombia Compra Eficiente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #2c5aa0;
+            padding-bottom: 20px;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .title {
+            color: #2c5aa0;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 16px;
+            margin: 5px 0 0 0;
+        }
+        .info-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .info-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .info-input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .evaluation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .evaluation-table th {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+        .evaluation-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .evaluation-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .criteria-cell {
+            text-align: left;
+            font-weight: 500;
+            color: #333;
+        }
+        .weight-cell {
+            background-color: #e8f4f8;
+            font-weight: bold;
+        }
+        .score-input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .calculated-cell {
+            background-color: #f0f8ff;
+            font-weight: bold;
+            color: #2c5aa0;
+        }
+        .summary-section {
+            background: linear-gradient(135deg, #2c5aa0, #4a90e2);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .summary-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .summary-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .summary-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .performance-bar {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .performance-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4444, #ffaa00, #44ff44);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        .comments-section {
+            margin-top: 30px;
+        }
+        .comments-title {
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 10px;
+        }
+        .comments-textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            font-family: Arial, sans-serif;
+        }
+        .signatures-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+        .signature-box {
+            text-align: center;
+        }
+        .signature-line {
+            border-bottom: 1px solid #333;
+            margin-bottom: 5px;
+            height: 50px;
+        }
+        .export-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .export-btn {
+            background: #2c5aa0;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            font-size: 14px;
+        }
+        .export-btn:hover {
+            background: #1e3d6f;
+        }
+        @media print {
+            .export-buttons { display: none; }
+            body { background: white; }
+            .container { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-section">
+                <h1 class="title">COLOMBIA COMPRA EFICIENTE</h1>
+            </div>
+            <h2 class="subtitle">Formato de Evaluación de Desempeño Laboral</h2>
+        </div>
+
+        <div class="info-section">
+            <div class="info-group">
+                <label class="info-label">Nombre del Funcionario:</label>
+                <input type="text" class="info-input" id="funcionario">
+            </div>
+            <div class="info-group">
+                <label class="info-label">Cargo:</label>
+                <input type="text" class="info-input" id="cargo">
+            </div>
+            <div class="info-group">
+                <label class="info-label">Dependencia:</label>
+                <input type="text" class="info-input" id="dependencia">
+            </div>
+            <div class="info-group">
+                <label class="info-label">Período de Evaluación:</label>
+                <input type="text" class="info-input" id="periodo" placeholder="Ej: Enero - Diciembre 2024">
+            </div>
+            <div class="info-group">
+                <label class="info-label">Evaluador:</label>
+                <input type="text" class="info-input" id="evaluador">
+            </div>
+            <div class="info-group">
+                <label class="info-label">Fecha de Evaluación:</label>
+                <input type="date" class="info-input" id="fecha">
+            </div>
+        </div>
+
+        <table class="evaluation-table">
+            <thead>
+                <tr>
+                    <th style="width: 40%;">Criterio de Evaluación</th>
+                    <th style="width: 10%;">Peso (%)</th>
+                    <th style="width: 15%;">Calificación (1-5)</th>
+                    <th style="width: 15%;">Puntaje Obtenido</th>
+                    <th style="width: 20%;">Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="criteria-cell">1. Conocimiento del Trabajo y Normatividad</td>
+                    <td class="weight-cell">12</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 0)"></td>
+                    <td class="calculated-cell" id="score-0">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr>
+                    <td class="criteria-cell">2. Calidad del Trabajo</td>
+                    <td class="weight-cell">12</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 1)"></td>
+                    <td class="calculated-cell" id="score-1">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr>
+                    <td class="criteria-cell">3. Productividad y Cumplimiento de Metas</td>
+                    <td class="weight-cell">10</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 2)"></td>
+                    <td class="calculated-cell" id="score-2">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr>
+                    <td class="criteria-cell">4. Trabajo en Equipo y Colaboración</td>
+                    <td class="weight-cell">8</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 3)"></td>
+                    <td class="calculated-cell" id="score-3">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr>
+                    <td class="criteria-cell">5. Atención al Usuario y Servicio</td>
+                    <td class="weight-cell">6</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 4)"></td>
+                    <td class="calculated-cell" id="score-4">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr>
+                    <td class="criteria-cell">6. Iniciativa e Innovación</td>
+                    <td class="weight-cell">5</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 5)"></td>
+                    <td class="calculated-cell" id="score-5">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr>
+                    <td class="criteria-cell">7. Comunicación Efectiva</td>
+                    <td class="weight-cell">4</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 6)"></td>
+                    <td class="calculated-cell" id="score-6">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr>
+                    <td class="criteria-cell">8. Puntualidad y Asistencia</td>
+                    <td class="weight-cell">3</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 7)"></td>
+                    <td class="calculated-cell" id="score-7">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr>
+                    <td class="criteria-cell">9. Manejo de Tecnología y Sistemas</td>
+                    <td class="weight-cell">20</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 8)"></td>
+                    <td class="calculated-cell" id="score-8">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr>
+                    <td class="criteria-cell">10. Análisis de Cifras y Contexto</td>
+                    <td class="weight-cell">15</td>
+                    <td><input type="number" class="score-input" min="1" max="5" onchange="calculateScore(this, 9)"></td>
+                    <td class="calculated-cell" id="score-9">0.0</td>
+                    <td><input type="text" style="width: 90%; border: none; background: transparent;"></td>
+                </tr>
+                <tr style="background-color: #2c5aa0; color: white; font-weight: bold;">
+                    <td>TOTAL</td>
+                    <td>100%</td>
+                    <td>-</td>
+                    <td id="total-score">0.0</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="summary-section">
+            <h3 style="margin-top: 0;">Resumen de Evaluación</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <div class="summary-label">Puntaje Total</div>
+                    <div class="summary-value" id="summary-score">0.0</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Porcentaje de Cumplimiento</div>
+                    <div class="summary-value" id="summary-percentage">0%</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Nivel de Desempeño</div>
+                    <div class="summary-value" id="performance-level">Sin Evaluar</div>
+                </div>
+            </div>
+            <div class="performance-bar">
+                <div class="performance-fill" id="performance-bar"></div>
+            </div>
+        </div>
+
+        <div class="comments-section">
+            <div class="comments-title">Comentarios y Recomendaciones del Evaluador:</div>
+            <textarea class="comments-textarea" placeholder="Ingrese comentarios sobre el desempeño, fortalezas identificadas y recomendaciones para mejora..."></textarea>
+        </div>
+
+        <div class="comments-section">
+            <div class="comments-title">Comentarios del Evaluado:</div>
+            <textarea class="comments-textarea" placeholder="Espacio para comentarios del funcionario evaluado..."></textarea>
+        </div>
+
+        <div class="comments-section">
+            <div class="comments-title">Plan de Mejora:</div>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #2c5aa0;">
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight: bold; color: #2c5aa0; display: block; margin-bottom: 5px;">Áreas de Oportunidad Identificadas:</label>
+                    <textarea style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;" placeholder="Identifique las principales áreas que requieren mejora..."></textarea>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="font-weight: bold; color: #2c5aa0; display: block; margin-bottom: 5px;">Acciones Específicas a Implementar:</label>
+                    <textarea style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;" placeholder="Describa las acciones concretas que se implementarán para mejorar el desempeño..."></textarea>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <label style="font-weight: bold; color: #2c5aa0; display: block; margin-bottom: 5px;">Fecha de Implementación:</label>
+                        <input type="date" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label style="font-weight: bold; color: #2c5aa0; display: block; margin-bottom: 5px;">Fecha de Seguimiento:</label>
+                        <input type="date" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <label style="font-weight: bold; color: #2c5aa0; display: block; margin-bottom: 5px;">Recursos Necesarios:</label>
+                    <textarea style="width: 100%; height: 60px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; resize: vertical;" placeholder="Capacitaciones, herramientas, tiempo, apoyo requerido..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="signatures-section">
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <strong>Firma del Evaluador</strong><br>
+                <span style="font-size: 12px;">Nombre y Cargo</span>
+            </div>
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <strong>Firma del Evaluado</strong><br>
+                <span style="font-size: 12px;">Nombre del Funcionario</span>
+            </div>
+        </div>
+
+        <div class="export-buttons">
+            <button class="export-btn" onclick="window.print()">Imprimir / Guardar PDF</button>
+            <button class="export-btn" onclick="exportToExcel()">Exportar a Excel</button>
+        </div>
+    </div>
+
+    <script>
+        const weights = [12, 12, 10, 8, 6, 5, 4, 3, 20, 15];
+        
+        function calculateScore(input, index) {
+            const score = parseFloat(input.value) || 0;
+            const weight = weights[index];
+            const weightedScore = (score * weight) / 100;
+            
+            document.getElementById(`score-${index}`).textContent = weightedScore.toFixed(1);
+            updateTotalScore();
+        }
+        
+        function updateTotalScore() {
+            let total = 0;
+            for (let i = 0; i < 10; i++) {
+                const scoreElement = document.getElementById(`score-${i}`);
+                total += parseFloat(scoreElement.textContent) || 0;
+            }
+            
+            document.getElementById('total-score').textContent = total.toFixed(1);
+            document.getElementById('summary-score').textContent = total.toFixed(1);
+            
+            const percentage = (total / 5) * 100;
+            document.getElementById('summary-percentage').textContent = percentage.toFixed(1) + '%';
+            
+            // Actualizar nivel de desempeño
+            let level = '';
+            if (percentage >= 90) level = 'Excelente';
+            else if (percentage >= 80) level = 'Sobresaliente';
+            else if (percentage >= 70) level = 'Satisfactorio';
+            else if (percentage >= 60) level = 'Aceptable';
+            else if (percentage > 0) level = 'Deficiente';
+            else level = 'Sin Evaluar';
+            
+            document.getElementById('performance-level').textContent = level;
+            
+            // Actualizar barra de progreso
+            const progressBar = document.getElementById('performance-bar');
+            progressBar.style.width = percentage + '%';
+        }
+        
+        function exportToExcel() {
+            // Crear contenido CSV
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "EVALUACIÓN DE DESEMPEÑO - COLOMBIA COMPRA EFICIENTE\n\n";
+            
+            // Información del funcionario
+            csvContent += "Funcionario," + (document.getElementById('funcionario').value || '') + "\n";
+            csvContent += "Cargo," + (document.getElementById('cargo').value || '') + "\n";
+            csvContent += "Dependencia," + (document.getElementById('dependencia').value || '') + "\n";
+            csvContent += "Período," + (document.getElementById('periodo').value || '') + "\n";
+            csvContent += "Evaluador," + (document.getElementById('evaluador').value || '') + "\n";
+            csvContent += "Fecha," + (document.getElementById('fecha').value || '') + "\n\n";
+            
+            // Encabezados de la tabla
+            csvContent += "Criterio,Peso(%),Calificación,Puntaje Obtenido\n";
+            
+            // Datos de evaluación
+            const criteria = [
+                "Conocimiento del Trabajo y Normatividad",
+                "Calidad del Trabajo", 
+                "Productividad y Cumplimiento de Metas",
+                "Trabajo en Equipo y Colaboración",
+                "Atención al Usuario y Servicio",
+                "Iniciativa e Innovación",
+                "Comunicación Efectiva",
+                "Puntualidad y Asistencia",
+                "Manejo de Tecnología y Sistemas",
+                "Análisis de Cifras y Contexto"
+            ];
+            
+            for (let i = 0; i < 10; i++) {
+                const scoreInput = document.getElementsByClassName('score-input')[i];
+                const score = scoreInput.value || '0';
+                const weightedScore = document.getElementById(`score-${i}`).textContent;
+                csvContent += `"${criteria[i]}",${weights[i]},${score},${weightedScore}\n`;
+            }
+            
+            csvContent += "\nPuntaje Total," + document.getElementById('total-score').textContent + "\n";
+            csvContent += "Porcentaje," + document.getElementById('summary-percentage').textContent + "\n";
+            csvContent += "Nivel," + document.getElementById('performance-level').textContent + "\n";
+            
+            // Descargar archivo
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "evaluacion_desempeno.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        // Establecer fecha actual
+        document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>
